@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Abc.Domain.Quantity;
+using Microsoft.EntityFrameworkCore;
 
 namespace Abc.Infra.Quantity
 {
@@ -11,31 +13,66 @@ namespace Abc.Infra.Quantity
         private readonly QuantityDbContext db;
         public MeasuresRepository(QuantityDbContext c)
         {
-            db = c;
-        }
-        public Task<List<Measure>> Get()
-        {
-            throw new NotImplementedException();
+            db =c;
         }
 
-        public Task<Measure> Get(string id)
+        public async Task<List<Measure>> Get()
         {
-            throw new NotImplementedException();
+            var l = await db.Measures.ToListAsync();
+
+            return l.Select(e => new Measure(e)).ToList();
+
         }
 
-        public Task Delete(string id)
+        public async Task<Measure> Get(string id)
         {
-            throw new NotImplementedException();
+            var d = await db.Measures.FirstOrDefaultAsync(m => m.Id == id);
+            return new Measure(d);
         }
 
-        public Task Add(Measure obj)
+        public async Task Delete(string id)
         {
-            throw new NotImplementedException();
+            var d = await db.Measures.FindAsync(id);
+
+            if (d is null) return;
+
+            db.Measures.Remove(d);
+            await db.SaveChangesAsync();
         }
 
-        public Task Update(Measure obj)
+        public async Task Add(Measure obj)
         {
-            throw new NotImplementedException();
+            db.Measures.Add(obj.Data);
+            await db.SaveChangesAsync();
+        }
+
+        public async Task Update(Measure obj)
+        {
+            var d = await db.Measures.FirstOrDefaultAsync(x=>x.Id==obj.Data.Id);
+
+            d.Code = obj.Data.Code; 
+            d.Name = obj.Data.Name;
+            d.Definition = obj.Data.Definition;
+            d.ValidForm = obj.Data.ValidForm;
+            d.ValidTo = obj.Data.ValidTo;
+            db.Measures.Update(d);
+   
+
+            try
+            {
+                await db.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                //if (!MeasureViewExists(MeasureView.Id))
+                //{
+                //    return NotFound();
+                //}
+                //else
+                //{
+                //    throw;
+                //}
+            }
         }
     }
 }

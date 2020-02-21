@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Abc.Domain.Quantity;
 using Abc.Facade.Quantity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -7,11 +8,11 @@ namespace Abc.Soft.Areas.Quantity.Pages.Measures
 {
     public class CreateModel : PageModel
     {
-        private readonly Abc.Soft.Data.ApplicationDbContext _context;
+        private readonly IMeasuresRepository data;
 
-        public CreateModel(Abc.Soft.Data.ApplicationDbContext context)
+        public CreateModel(IMeasuresRepository r)
         {
-            _context = context;
+            data = r;
         }
 
         public IActionResult OnGet()
@@ -26,13 +27,8 @@ namespace Abc.Soft.Areas.Quantity.Pages.Measures
         // more details see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
-
-            _context.Measures.Add(MeasureView);
-            await _context.SaveChangesAsync();
+            if (!ModelState.IsValid) return Page();
+            await data.Add(MeasureViewFactory.Create(MeasureView));
 
             return RedirectToPage("./Index");
         }
