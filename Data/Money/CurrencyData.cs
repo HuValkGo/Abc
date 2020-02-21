@@ -9,3 +9,4 @@ namespace Abc.Data.Money
     {
     }
 }
+  
