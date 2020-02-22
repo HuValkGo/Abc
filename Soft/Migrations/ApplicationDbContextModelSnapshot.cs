@@ -19,7 +19,7 @@ namespace Abc.Soft.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Abc.Facade.Quantity.MeasureView", b =>
+            modelBuilder.Entity("Abc.Facade.Quantity.Item", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");

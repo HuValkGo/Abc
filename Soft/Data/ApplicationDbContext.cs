@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Abc.Facade.Quantity;
-using Microsoft.VisualStudio.Web.CodeGeneration.Contracts.Messaging;
+using Abc.Infra.Quantity;
 
 namespace Abc.Soft.Data
 {
@@ -11,11 +10,10 @@ namespace Abc.Soft.Data
             : base(options)
         {
         }
-        public DbSet<Abc.Facade.Quantity.MeasureView> Measures{ get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            builder.Entity<MeasureView>().ToTable(nameof(Measures));
+            QuantityDbContext.InitializeTables(builder);
         }
     }
 }

@@ -1,23 +1,16 @@
 ﻿using System.Threading.Tasks;
+using Abc.Domain.Quantity;
 using Abc.Facade.Quantity;
+using Abc.Pages.Quantity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 
 namespace Abc.Soft.Areas.Quantity.Pages.Measures
 {
-    public class DeleteModel : PageModel
+    public class DeleteModel : MeasuresPage
     {
-        private readonly Abc.Soft.Data.ApplicationDbContext _context;
-
-        public DeleteModel(Abc.Soft.Data.ApplicationDbContext context)
-        {
-            _context = context;
-        }
-
-        [BindProperty]
-        public MeasureView MeasureView { get; set; }
-
+        public DeleteModel(IMeasuresRepository r) : base(r) { }
         public async Task<IActionResult> OnGetAsync(string id)
         {
             if (id == null)
@@ -25,9 +18,9 @@ namespace Abc.Soft.Areas.Quantity.Pages.Measures
                 return NotFound();
             }
 
-            MeasureView = await _context.Measures.FirstOrDefaultAsync(m => m.Id == id);
+            Item = MeasureViewFactory.Create(await data.Get(id));
 
-            if (MeasureView == null)
+            if (Item == null)
             {
                 return NotFound();
             }
@@ -41,14 +34,7 @@ namespace Abc.Soft.Areas.Quantity.Pages.Measures
                 return NotFound();
             }
 
-            MeasureView = await _context.Measures.FindAsync(id);
-
-            if (MeasureView != null)
-            {
-                _context.Measures.Remove(MeasureView);
-                await _context.SaveChangesAsync();
-            }
-
+            await data.Delete(id);
             return RedirectToPage("./Index");
         }
     }
