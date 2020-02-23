@@ -18,7 +18,7 @@ namespace Abc.Soft.Areas.Quantity.Pages.Measures
                 return NotFound();
             }
 
-            Item = MeasureViewFactory.Create(await data.Get(id));
+            Item = MeasureViewFactory.Create(await db.Get(id));
             if (Item == null)
             {
                 return NotFound();
