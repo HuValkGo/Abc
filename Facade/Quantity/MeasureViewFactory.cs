@@ -10,7 +10,7 @@ namespace Abc.Facade.Quantity
     {
         public static Measure Create(MeasureView v)
         {
-            var d = new MeasureData()
+            var d = new MeasureData
             {
                 Id = v.Id,
                 Name = v.Name,

@@ -21,7 +21,7 @@ namespace Abc.Infra.Quantity
         }
         public static void InitializeTables(ModelBuilder builder)
         {
-            builder.Entity<MeasureData>().ToTable("Measure");
+            builder.Entity<MeasureData>().ToTable(nameof(Measures));
         }
     }
 }

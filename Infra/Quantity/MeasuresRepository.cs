@@ -10,7 +10,7 @@ namespace Abc.Infra.Quantity
 {
     public class MeasuresRepository : IMeasuresRepository
     {
-        private readonly QuantityDbContext db;
+        protected internal QuantityDbContext db;
         public MeasuresRepository(QuantityDbContext c)
         {
             db = c;

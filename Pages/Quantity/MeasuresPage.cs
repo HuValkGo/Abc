@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Abc.Pages.Quantity
 {
-    public class MeasuresPage : PageModel
+    public abstract class MeasuresPage : PageModel
     {
         protected internal readonly IMeasuresRepository data;
 

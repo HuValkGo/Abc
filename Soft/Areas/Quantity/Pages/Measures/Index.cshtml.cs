@@ -11,7 +11,7 @@ namespace Abc.Soft.Areas.Quantity.Pages.Measures
         public IndexModel(IMeasuresRepository r) : base(r) { }
         public async Task OnGetAsync()
         {
-            var l = await data.Get();
+            var l = await data.Get(); 
             Items = new List<MeasureView>();
             foreach (var e in l)
             {
