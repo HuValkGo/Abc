@@ -13,7 +13,7 @@ namespace Abc.Infra.Quantity
         private readonly QuantityDbContext db;
         public MeasuresRepository(QuantityDbContext c)
         {
-            db =c;
+            db = c;
         }
 
         public async Task<List<Measure>> Get()
