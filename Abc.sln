@@ -13,7 +13,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infra", "Infra\Infra.csproj
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pages", "Pages\Pages.csproj", "{769A7224-B520-4588-B773-3A51AF0BFA06}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Soft", "Soft\Soft.csproj", "{2D7B6105-183B-42B4-913F-960C463EB5A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Soft", "Soft\Soft.csproj", "{2D7B6105-183B-42B4-913F-960C463EB5A2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AjaLogi", "AjaLogi", "{B4FFB516-5934-4A7C-82A0-571CA9980D31}"
+	ProjectSection(SolutionItems) = preProject
+		..\Proge\Recording LOG HUGO.xlsx = ..\Proge\Recording LOG HUGO.xlsx
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
