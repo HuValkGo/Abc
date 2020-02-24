@@ -13,12 +13,15 @@ namespace Abc.Soft.Areas.Quantity.Pages.Measures
 
         public string NameSort { get; set; }
         public string DateSort { get; set; }
+        public string SearchString { get; set; }
 
-        public async Task OnGetAsync(string sortOrder)
+        public async Task OnGetAsync(string sortOrder,string searchString)
         {
             NameSort = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             DateSort = sortOrder == "Date" ? "date_desc" : "Date";
             db.SortOrder = sortOrder;
+            SearchString = searchString;
+            db.SearchString = searchString;
             var l = await db.Get(); 
             Items = new List<MeasureView>();
             foreach (var e in l)

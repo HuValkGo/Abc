@@ -8,7 +8,6 @@ namespace Abc.Domain.Quantity
 {
     public class Measure : Entity<MeasureData>
     {
-        private MeasureData d;
         public Measure(MeasureData data) : base(data)
         {
 
