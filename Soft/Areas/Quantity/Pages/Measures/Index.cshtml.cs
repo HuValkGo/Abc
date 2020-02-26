@@ -11,17 +11,38 @@ namespace Abc.Soft.Areas.Quantity.Pages.Measures
     {
         public IndexModel(IMeasuresRepository r) : base(r) { }
 
+        public string CurrentSort { get; set; }
         public string NameSort { get; set; }
         public string DateSort { get; set; }
-        public string SearchString { get; set; }
 
-        public async Task OnGetAsync(string sortOrder,string searchString)
+        
+        public bool HasPreviousPage { get; set; }
+        public bool HasNextPage { get; set; }
+        public int PageIndex { get; set; }
+
+        public string SearchString { get; set; }
+        public string CurrentFilter { get; set; }
+
+        public async Task OnGetAsync(string sortOrder,
+            string currentFilter, string searchString, int? pageIndex)
         {
-            NameSort = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            CurrentSort = sortOrder;
+            NameSort = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             DateSort = sortOrder == "Date" ? "date_desc" : "Date";
+            if (searchString != null)
+            {
+                pageIndex = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+            CurrentFilter = searchString;
             db.SortOrder = sortOrder;
-            SearchString = searchString;
+            SearchString = CurrentFilter;
             db.SearchString = searchString;
+            db.PageIndex = pageIndex?? 1;
+            PageIndex = db.PageIndex;
             var l = await db.Get(); 
             Items = new List<MeasureView>();
             foreach (var e in l)
@@ -29,6 +50,8 @@ namespace Abc.Soft.Areas.Quantity.Pages.Measures
                 Items.Add(MeasureViewFactory.Create(e));
             }
 
+            HasNextPage = db.HasNextPage;
+            HasPreviousPage = db.HasPreviousPage;
         }
 
     }

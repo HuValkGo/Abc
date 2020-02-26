@@ -12,24 +12,35 @@ namespace Abc.Infra.Quantity
 {
     public class MeasuresRepository : IMeasuresRepository
     {
-        protected internal QuantityDbContext db;
+        protected internal QuantityDbContext Db;
         public string SortOrder { get; set; }
         public string SearchString { get; set; }
+        public int PageSize { get; set; } = 1;
+        public int PageIndex { get; set; } = 1;
+        public bool HasNextPage { get; set; }
+        public bool HasPreviousPage { get; set; }
 
         public MeasuresRepository(QuantityDbContext c)
         {
-            db = c;
+            Db = c;
         }
 
         public async Task<List<Measure>> Get()
         {
-            var list = await createFiltered(createSorted()).ToListAsync();
-
+            var list = await CreatePaged(CreateFiltered(CreateSorted()));
+            HasNextPage = list.HasNextPage;
+            HasPreviousPage = list.HasPreviousPage;
             return list.Select(e => new Measure(e)).ToList();
 
         }
 
-        private IQueryable<MeasureData> createFiltered(IQueryable<MeasureData> set)
+        private async Task<PaginatedList<MeasureData>>CreatePaged(IQueryable<MeasureData> dataSet)
+        {
+            return await PaginatedList<MeasureData>.CreateAsync(
+                dataSet, PageIndex, PageSize);
+        }
+
+        private IQueryable<MeasureData> CreateFiltered(IQueryable<MeasureData> set)
         {
             if (String.IsNullOrEmpty(SearchString)) return set;
             return set.Where(s => s.Name.Contains(SearchString)
@@ -41,9 +52,9 @@ namespace Abc.Infra.Quantity
                                   );
         }
 
-        private IQueryable<MeasureData> createSorted()
+        private IQueryable<MeasureData> CreateSorted()
         {
-            IQueryable<MeasureData> measures= from s in db.Measures select s;
+            IQueryable<MeasureData> measures= from s in Db.Measures select s;
 
             switch (SortOrder)
             {
@@ -66,41 +77,41 @@ namespace Abc.Infra.Quantity
         
         public async Task<Measure> Get(string id)
         {
-            var d = await db.Measures.FirstOrDefaultAsync(m => m.Id == id);
+            var d = await Db.Measures.FirstOrDefaultAsync(m => m.Id == id);
             return new Measure(d);
         }
 
         public async Task Delete(string id)
         {
-            var d = await db.Measures.FindAsync(id);
+            var d = await Db.Measures.FindAsync(id);
 
             if (d is null) return;
 
-            db.Measures.Remove(d);
-            await db.SaveChangesAsync();
+            Db.Measures.Remove(d);
+            await Db.SaveChangesAsync();
         }
 
         public async Task Add(Measure obj)
         {
-            db.Measures.Add(obj.Data);
-            await db.SaveChangesAsync();
+            Db.Measures.Add(obj.Data);
+            await Db.SaveChangesAsync();
         }
 
         public async Task Update(Measure obj)
         {
-            var d = await db.Measures.FirstOrDefaultAsync(x=>x.Id==obj.Data.Id);
+            var d = await Db.Measures.FirstOrDefaultAsync(x=>x.Id==obj.Data.Id);
 
             d.Code = obj.Data.Code; 
             d.Name = obj.Data.Name;
             d.Definition = obj.Data.Definition;
             d.ValidForm = obj.Data.ValidForm;
             d.ValidTo = obj.Data.ValidTo;
-            db.Measures.Update(d);
+            Db.Measures.Update(d);
    
 
             try
             {
-                await db.SaveChangesAsync();
+                await Db.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
             {

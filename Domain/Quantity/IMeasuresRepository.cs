@@ -1,9 +1,9 @@
-﻿using Abc.Domain.Common;
+﻿using System.Dynamic;
+using Abc.Domain.Common;
 
 namespace Abc.Domain.Quantity
 {
     public interface IMeasuresRepository: IRepository<Measure>
     {
-
     }
 }

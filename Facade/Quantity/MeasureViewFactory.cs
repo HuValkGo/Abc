@@ -16,7 +16,7 @@ namespace Abc.Facade.Quantity
                 Name = v.Name,
                 Code = v.Code,
                 Definition = v.Definition,
-                ValidForm = v.ValidForm,
+                ValidForm = v.ValidFrom,
                 ValidTo = v.ValidTo
             };
             return new Measure(d);
@@ -29,7 +29,7 @@ namespace Abc.Facade.Quantity
                 Name = o.Data.Name,
                 Code = o.Data.Code,
                 Definition = o.Data.Definition,
-                ValidForm = o.Data.ValidForm,
+                ValidFrom = o.Data.ValidForm,
                 ValidTo = o.Data.ValidTo
             };
             return v;
