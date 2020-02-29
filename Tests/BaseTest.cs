@@ -1,10 +1,10 @@
 ﻿using System;
-using Microsoft.AspNetCore.Razor.Language.CodeGeneration;
+using Abc.Aids;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Tests
 {
-    public abstract class BaseTest<TClass, TBaseClass> where TClass : new()
+    public abstract class BaseTest<TClass, TBaseClass>
     {
         protected TClass obj;
         protected Type type;
@@ -12,14 +12,8 @@ namespace Tests
         [TestInitialize]
         public virtual void TestInitialize()
         {
-            obj=new TClass();
-            type = obj.GetType();
+            type = typeof(TClass);
 
-        }
-        [TestMethod]
-        public void CanCreateTest()
-        {
-            Assert.IsNotNull(obj);
         }
 
         [TestMethod]
@@ -27,10 +21,18 @@ namespace Tests
         {
             Assert.AreEqual(typeof(TBaseClass), type.BaseType);
         }
-        [TestMethod]
-        public void IsSealed()
+        protected static void isNullableProperty<T>(Func<T> get, Action<T> set)
         {
-            Assert.IsTrue(type.IsSealed);
+           isProperty(get,set);
+            set(default);
+            Assert.IsNull(get());
+        }
+        protected static void isProperty<T>(Func<T> get, Action<T> set)
+        {
+            var d = (T)GetRandom.Value(typeof(T));
+            Assert.AreNotEqual(d, get());
+            set(d);
+            Assert.AreEqual(d, get());
         }
     }
 }
