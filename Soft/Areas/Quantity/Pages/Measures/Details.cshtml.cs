@@ -3,8 +3,6 @@ using Abc.Domain.Quantity;
 using Abc.Facade.Quantity;
 using Abc.Pages.Quantity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
 
 namespace Abc.Soft.Areas.Quantity.Pages.Measures
 {

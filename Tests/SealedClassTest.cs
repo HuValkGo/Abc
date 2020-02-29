@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Razor.Language.CodeGeneration;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Tests
 {

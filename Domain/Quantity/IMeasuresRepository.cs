@@ -1,5 +1,4 @@
-﻿using System.Dynamic;
-using Abc.Domain.Common;
+﻿using Abc.Domain.Common;
 
 namespace Abc.Domain.Quantity
 {

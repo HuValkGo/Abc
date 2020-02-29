@@ -1,6 +1,4 @@
-﻿using System;
-using System.Security.Cryptography.X509Certificates;
-using Abc.Data.Common;
+﻿using Abc.Data.Common;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Tests.Data.Common
