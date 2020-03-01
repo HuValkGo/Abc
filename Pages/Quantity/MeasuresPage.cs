@@ -13,9 +13,18 @@ namespace Abc.Pages.Quantity
         protected internal MeasuresPage(IMeasuresRepository r)
         {
             db = r;
+            PageTitle = "Measures";
         }
         [BindProperty] 
         public MeasureView Item { get; set; }
         public IList<MeasureView> Items { get; set; }
+        public string PageTitle { get; set; }
+        public string ItemId => Item.Id;
+        public string PageSubtitle { get; set; }
+        public string CurrentSort { get; set; } = "Current sort";
+        public string CurrentFilter { get; set; } = "Current Filter";
+        public int PageIndex { get; set; } = 3;
+        public int TotalPages { get; set; } = 10;
+
     }
 }

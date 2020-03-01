@@ -3,12 +3,12 @@ using System.Threading.Tasks;
 
 namespace Abc.Domain.Common
 {
-    public interface ICrudMethods<T>
+    public interface ICrudMethods<TDomain>
     {
-        Task<List<T>> Get();
-        Task<T> Get(string id);
+        Task<List<TDomain>> Get();
+        Task<TDomain> Get(string id);
         Task Delete(string id);
-        Task Add(T obj);
-        Task Update(T obj);
+        Task Add(TDomain obj);
+        Task Update(TDomain obj);
     }
 }

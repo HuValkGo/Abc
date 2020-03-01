@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Abc.Data.Quantity;
@@ -8,22 +7,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Abc.Infra.Quantity
 {
-    public class MeasuresRepository : IMeasuresRepository
-    {
-        protected internal QuantityDbContext Db;
-        public string SortOrder { get; set; }
-        public string SearchString { get; set; }
-        public int PageSize { get; set; } = 1;
-        public int PageIndex { get; set; } = 1;
-        public bool HasNextPage { get; set; }
-        public bool HasPreviousPage { get; set; }
+    public class MeasuresRepository : UniqueEntityRepository<Measure, MeasureData>, IMeasuresRepository
+    { 
+        public MeasuresRepository(QuantityDbContext c) : base(c, c.Measures) { }
 
-        public MeasuresRepository(QuantityDbContext c)
-        {
-            Db = c;
-        }
-
-        public async Task<List<Measure>> Get()
+        public override async Task<List<Measure>> Get()
         {
             var list = await CreatePaged(CreateFiltered(CreateSorted()));
             HasNextPage = list.HasNextPage;
@@ -40,7 +28,7 @@ namespace Abc.Infra.Quantity
 
         private IQueryable<MeasureData> CreateFiltered(IQueryable<MeasureData> set)
         {
-            if (String.IsNullOrEmpty(SearchString)) return set;
+            if (string.IsNullOrEmpty(SearchString)) return set;
             return set.Where(s => s.Name.Contains(SearchString)
                                   || s.Code.Contains(SearchString)
                                   || s.Id.Contains(SearchString)
@@ -52,18 +40,43 @@ namespace Abc.Infra.Quantity
 
         private IQueryable<MeasureData> CreateSorted()
         {
-            IQueryable<MeasureData> measures= from s in Db.Measures select s;
+            IQueryable<MeasureData> measures= from s in dbSet select s;
 
             switch (SortOrder)
             {
                 case "name_desc":
                     measures = measures.OrderByDescending(s => s.Name);
                     break;
-                case "Date":
+                case "ValidFrom":
                     measures = measures.OrderBy(s => s.ValidForm);
                     break;
-                case "date_desc":
+                case "ValidFrom_desc":
                     measures = measures.OrderByDescending(s => s.ValidForm);
+                    break;
+                case "ValidTo":
+                    measures = measures.OrderBy(s => s.ValidTo);
+                    break;
+                case "ValidTo_desc":
+                    measures = measures.OrderByDescending(s => s.ValidTo);
+                    break;
+
+                case "Id":
+                    measures = measures.OrderBy(s => s.Id);
+                    break;
+                case "Id_desc":
+                    measures = measures.OrderByDescending(s => s.Id);
+                    break;
+                case "Code":
+                    measures = measures.OrderBy(s => s.Code);
+                    break;
+                case "Code_desc":
+                    measures = measures.OrderByDescending(s => s.Code);
+                    break;
+                case "Definition":
+                    measures = measures.OrderBy(s => s.Definition );
+                    break;
+                case "Definition_desc":
+                    measures = measures.OrderByDescending(s => s.Definition);
                     break;
                 default:
                     measures = measures.OrderBy(s => s.Name);
@@ -71,57 +84,6 @@ namespace Abc.Infra.Quantity
             }
 
             return measures.AsNoTracking();
-        }
-        
-        public async Task<Measure> Get(string id)
-        {
-            var d = await Db.Measures.FirstOrDefaultAsync(m => m.Id == id);
-            return new Measure(d);
-        }
-
-        public async Task Delete(string id)
-        {
-            var d = await Db.Measures.FindAsync(id);
-
-            if (d is null) return;
-
-            Db.Measures.Remove(d);
-            await Db.SaveChangesAsync();
-        }
-
-        public async Task Add(Measure obj)
-        {
-            Db.Measures.Add(obj.Data);
-            await Db.SaveChangesAsync();
-        }
-
-        public async Task Update(Measure obj)
-        {
-            var d = await Db.Measures.FirstOrDefaultAsync(x=>x.Id==obj.Data.Id);
-
-            d.Code = obj.Data.Code; 
-            d.Name = obj.Data.Name;
-            d.Definition = obj.Data.Definition;
-            d.ValidForm = obj.Data.ValidForm;
-            d.ValidTo = obj.Data.ValidTo;
-            Db.Measures.Update(d);
-   
-
-            try
-            {
-                await Db.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                //if (!MeasureViewExists(MeasureView.Id))
-                //{
-                //    return NotFound();
-                //}
-                //else
-                //{
-                //    throw;
-                //}
-            }
         }
     }
 }
