@@ -15,7 +15,7 @@ namespace Abc.Soft.Areas.Quantity.Pages.Measures
         public string ValidFromSort { get; set; }
         public string IdSort { get; set; }
         public string CodeSort { get; set; }
-        public string DefinitionSort{ get; set; }
+        public string DefinitionSort { get; set; }
         public string ValidToSort { get; set; }
 
 
@@ -29,8 +29,9 @@ namespace Abc.Soft.Areas.Quantity.Pages.Measures
         public async Task OnGetAsync(string sortOrder,
             string currentFilter, string searchString, int? pageIndex)
         {
+            sortOrder = string.IsNullOrEmpty(sortOrder) ? "Name":sortOrder;
             CurrentSort = sortOrder;
-            NameSort = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            NameSort = sortOrder=="Name"? "Name_desc" : "Name";
             IdSort = sortOrder == "Id" ? "Id_desc" : "Id";
             CodeSort = sortOrder == "Code" ? "Code_desc" : "Code";
             DefinitionSort = sortOrder == "Definition" ? "Definition_desc" : "Definition";
