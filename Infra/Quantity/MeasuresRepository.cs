@@ -32,7 +32,7 @@ namespace Abc.Infra.Quantity
             return set.Where(s => s.Name.Contains(SearchString)
                                   || s.Code.Contains(SearchString)
                                   || s.Id.Contains(SearchString)
-                                  || s.ValidForm.ToString().Contains(SearchString)
+                                  || s.ValidFrom.ToString().Contains(SearchString)
                                   || s.ValidTo.ToString().Contains(SearchString)
                                   || s.Definition.Contains(SearchString)
                                   );

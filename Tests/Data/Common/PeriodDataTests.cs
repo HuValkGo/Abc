@@ -16,7 +16,7 @@ namespace Tests.Data.Common
         [TestMethod]
         public void ValidFromTest()
         {
-            isNullableProperty(()=> obj.ValidForm, x => obj.ValidForm = x);
+            isNullableProperty(()=> obj.ValidFrom, x => obj.ValidFrom = x);
         }
 
         [TestMethod]
