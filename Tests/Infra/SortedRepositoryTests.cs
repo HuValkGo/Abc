@@ -1,9 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
 using Abc.Data.Quantity;
 using Abc.Domain.Quantity;
 using Abc.Infra;
@@ -11,10 +9,8 @@ using Abc.Infra.Quantity;
 using Tests;
 using System.Threading.Tasks;
 using Abc.Aids;
-using Abc.Data.Common;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
-using Newtonsoft.Json.Serialization;
 
 namespace Abc.Tests.Infra
 {
@@ -28,9 +24,10 @@ namespace Abc.Tests.Infra
             {
             }
 
-            protected override Task<MeasureData> getData(string id)
+            protected override async Task<MeasureData> getData(string id)
             {
-               throw new System.NotImplementedException();
+                await Task.CompletedTask;
+                return new MeasureData();
             }
         }
 
@@ -55,11 +52,39 @@ namespace Abc.Tests.Infra
             var propertyName = GetMember.Name<testClass>(x => x.DescendingString);
             isReadOnlyProperty(obj,propertyName,"_desc");
         }
+
         [TestMethod]
         public void SetSortingTest()
         {
-            Assert.Inconclusive();
+            void Test(IQueryable<MeasureData> d, string sortOrder)
+            {
+                obj.SortOrder = sortOrder + obj.DescendingString;
+                var set = obj.setSorting(d);
+                Assert.IsNotNull(set);
+                Assert.AreNotEqual(d, set);
+                Assert.IsTrue(set.Expression.ToString()
+                    .Contains($"Abc.Data.Quantity.MeasureData]).OrderByDescending(Param_0 => Convert(Param_0.{sortOrder}, Object)"));
+                obj.SortOrder = sortOrder;
+                set = obj.setSorting(d);
+                Assert.IsNotNull(set);
+                Assert.AreNotEqual(d, set);
+                Assert.IsTrue(set.Expression.ToString()
+                    .Contains($"Abc.Data.Quantity.MeasureData]).OrderBy(Param_0 => Convert(Param_0.{sortOrder}, Object)"));
+
+            }
+
+            Assert.IsNull(obj.setSorting(null));
+            IQueryable<MeasureData> data = obj.dbSet;
+            obj.SortOrder = null;
+            Assert.AreEqual(data, obj.setSorting(data));
+            Test(data, GetMember.Name<MeasureData>(x => x.Id));
+            Test(data, GetMember.Name<MeasureData>(x => x.Code));
+            Test(data, GetMember.Name<MeasureData>(x => x.Name));
+            Test(data, GetMember.Name<MeasureData>(x => x.Definition));
+            Test(data, GetMember.Name<MeasureData>(x => x.ValidFrom));
+            Test(data, GetMember.Name<MeasureData>(x => x.ValidTo));
         }
+
         [TestMethod]
         public void CreateExpressionTest()
         {
