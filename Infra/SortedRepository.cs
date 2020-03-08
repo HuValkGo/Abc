@@ -20,10 +20,16 @@ namespace Abc.Infra
         {
         }
 
-        protected internal IQueryable<TData> setSorting(IQueryable<TData> data)
+        protected internal override  IQueryable<TData> createSqlQuery()
+        {
+            var query = base.createSqlQuery();
+            query = addSorting(query);
+            return query;
+        }
+        protected internal IQueryable<TData> addSorting(IQueryable<TData> query)
         {
             var expression = createExpression();
-            var r = expression is null ? data : setOrderBy(data, expression);
+            var r = expression is null ? query : addOrderBy(query, expression);
             return r;
         }
 
@@ -55,17 +61,17 @@ namespace Abc.Infra
             return idx > 0 ? SortOrder.Remove(idx) : SortOrder;
         }
 
-        internal IQueryable<TData> setOrderBy(IQueryable<TData> data, Expression<Func<TData, object>> e)
+        internal IQueryable<TData> addOrderBy(IQueryable<TData> query, Expression<Func<TData, object>> e)
         {
-            if (data is null) return null;
-            if (e is null) return data;
+            if (query is null) return null;
+            if (e is null) return query;
             try
             {
-                return isDecending() ? data.OrderByDescending(e) : data.OrderBy(e);
+                return isDecending() ? query.OrderByDescending(e) : query.OrderBy(e);
             }
             catch
             {
-                return data;
+                return query;
             }
 
         }

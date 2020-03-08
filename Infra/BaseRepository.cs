@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Linq;
 using System.Threading.Tasks;
 using Abc.Data.Common;
 using Abc.Domain.Common;
@@ -21,8 +23,23 @@ namespace Abc.Infra
         }
         public virtual async Task<List<TDomain>> Get()
         {
-            throw new NotImplementedException();
+            var query = createSqlQuery();
+            var set = await runSqlQueryAsync(query);
+            return toDomainObjectsList(set);
         }
+
+        protected internal virtual IQueryable<TData> createSqlQuery()
+        {
+            var query = from s in dbSet select s;
+            return query;
+        }
+
+        internal List<TDomain> toDomainObjectsList(List<TData>set) => set.Select(toDomainObject).ToList();
+        
+        protected internal abstract TDomain toDomainObject(TData periodData);
+
+        internal  async Task<List<TData>> runSqlQueryAsync(IQueryable<TData>query) => await query.AsNoTracking().ToListAsync();
+        
         public async Task<TDomain> Get(string id)
         {
             if (id is null) return new TDomain();
