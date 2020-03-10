@@ -15,16 +15,6 @@ namespace Abc.Infra.Quantity
 
         protected internal override Measure toDomainObject(MeasureData d)=> new Measure(d);
         
-        protected internal override IQueryable<MeasureData> addFiltering(IQueryable<MeasureData> set)
-        {
-            if (string.IsNullOrEmpty(SearchString)) return set;
-            return set.Where(s => s.Name.Contains(SearchString)
-                                  || s.Code.Contains(SearchString)
-                                  || s.Id.Contains(SearchString)
-                                  || s.ValidFrom.ToString().Contains(SearchString)
-                                  || s.ValidTo.ToString().Contains(SearchString)
-                                  || s.Definition.Contains(SearchString)
-                                  );
-        }
+     
     }
 }

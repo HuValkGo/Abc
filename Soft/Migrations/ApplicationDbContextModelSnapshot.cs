@@ -4,6 +4,7 @@ using Abc.Soft.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Abc.Soft.Migrations
 {
@@ -32,7 +33,7 @@ namespace Abc.Soft.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("ValidForm")
+                    b.Property<DateTime?>("ValidFrom")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("ValidTo")
@@ -57,7 +58,7 @@ namespace Abc.Soft.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("ValidForm")
+                    b.Property<DateTime?>("ValidFrom")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("ValidTo")
@@ -85,7 +86,7 @@ namespace Abc.Soft.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("ValidForm")
+                    b.Property<DateTime?>("ValidFrom")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("ValidTo")
@@ -107,7 +108,7 @@ namespace Abc.Soft.Migrations
                     b.Property<double>("Factor")
                         .HasColumnType("float");
 
-                    b.Property<DateTime?>("ValidForm")
+                    b.Property<DateTime?>("ValidFrom")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("ValidTo")
