@@ -13,13 +13,10 @@ namespace Abc.Soft.Areas.Quantity.Pages.Measures
         {
             return Page();
         }
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        // more details see https://aka.ms/RazorPagesCRUD.
+       
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid) return Page();
-            await db.Add(MeasureViewFactory.Create(Item));
-
+            if(!await addObject()) return Page();
             return RedirectToPage("./Index");
         }
     }

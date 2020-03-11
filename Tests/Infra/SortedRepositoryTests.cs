@@ -57,7 +57,7 @@ namespace Abc.Tests.Infra
         }
 
         [TestMethod]
-        public void SetSortingTest()
+        public void addSortingTest()
         {
             void Test(IQueryable<MeasureData> d, string sortOrder)
             {
@@ -178,7 +178,7 @@ namespace Abc.Tests.Infra
 
         }
         [TestMethod]
-        public void SetOrderByTest()
+        public void AddOrderByTest()
         {
             void Test(IQueryable<MeasureData> d,Expression<Func<MeasureData,object>> e,string expected)
             {

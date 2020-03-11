@@ -15,12 +15,12 @@
     <table class="table">
         <thead>
             @Html.TableHeaderFor(
-                new Link(Html.DisplayNameFor(model => model.Item.Id), $"{page}?sortOrder={Model.IdSort}"),
-                new Link(Html.DisplayNameFor( model=>model.Item.Name),$"{page}?sortOrder={Model.NameSort }"),
-                new Link(Html.DisplayNameFor( model=>model.Item.Code),$"{page}?sortOrder={Model.CodeSort}"),
-                new Link(Html.DisplayNameFor( model=>model.Item.Definition ),$"{page}?sortOrder={Model.DefinitionSort}"),
-                new Link(Html.DisplayNameFor( model=>model.Item.ValidFrom ),$"{page}?sortOrder={Model.ValidFromSort}"),
-                new Link(Html.DisplayNameFor( model=>model.Item.ValidTo),$"{page}?sortOrder={Model.ValidToSort}"))
+                new Link(Html.DisplayNameFor(m => m.Item.Id), Model.GetSortSorting(m=>m.Id,page)),
+                new Link(Html.DisplayNameFor( m=>m.Item.Name),Model.GetSortSorting(m=>m.Name,page)),
+                new Link(Html.DisplayNameFor( m=>m.Item.Code),Model.GetSortSorting(m=>m.Code,page)),
+                new Link(Html.DisplayNameFor( m=>m.Item.Definition ),Model.GetSortSorting(m=>m.Definition,page)),
+                new Link(Html.DisplayNameFor( m=>m.Item.ValidFrom ),Model.GetSortSorting(m=>m.ValidFrom,page )),
+                new Link(Html.DisplayNameFor( m=>m.Item.ValidTo),Model.GetSortSorting(m=>m.ValidTo,page )))
         </thead>
         <tbody>
         @foreach (var item in Model.Items)
