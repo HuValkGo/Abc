@@ -56,7 +56,7 @@ namespace Abc.Tests.Infra
         }
 
         [TestMethod]
-        public void addSortingTest()
+        public void SetSortingTest()
         {
             void Test(IQueryable<MeasureData> d, string sortOrder)
             {
@@ -65,13 +65,13 @@ namespace Abc.Tests.Infra
                 Assert.IsNotNull(set);
                 Assert.AreNotEqual(d, set);
                 Assert.IsTrue(set.Expression.ToString()
-                    .Contains($"Abc.Data.Quantity.MeasureData]).OrderByDescending(Param_0 => Convert(Param_0.{sortOrder}, Object)"));
+                    .Contains($"Abc.Data.Quantity.MeasureData]).OrderByDescending(x => Convert(x.{sortOrder}, Object)"));
                 obj.SortOrder = sortOrder;
                 set = obj.addSorting(d);
                 Assert.IsNotNull(set);
                 Assert.AreNotEqual(d, set);
                 Assert.IsTrue(set.Expression.ToString()
-                    .Contains($"Abc.Data.Quantity.MeasureData]).OrderBy(Param_0 => Convert(Param_0.{sortOrder}, Object)"));
+                    .Contains($"Abc.Data.Quantity.MeasureData]).OrderBy(x => Convert(x.{sortOrder}, Object)"));
 
             }
 
@@ -177,7 +177,7 @@ namespace Abc.Tests.Infra
 
         }
         [TestMethod]
-        public void AddOrderByTest()
+        public void SetOrderByTest()
         {
             void Test(IQueryable<MeasureData> d,Expression<Func<MeasureData,object>> e,string expected)
             {
