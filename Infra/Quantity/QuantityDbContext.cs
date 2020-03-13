@@ -10,7 +10,7 @@ namespace Abc.Infra.Quantity
         {
         }
         public DbSet<MeasureData> Measures { get; set; }
-        public DbSet<MeasureData> Units { get; set; }
+        public DbSet<UnitData> Units { get; set; }
         public DbSet<MeasureData> SystemsOfUnits { get; set; }
         public DbSet<MeasureData> UnitFactors{ get; set; }
         protected override void OnModelCreating(ModelBuilder builder)

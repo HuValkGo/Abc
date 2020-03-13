@@ -1,7 +1,9 @@
 ﻿
 using System.Threading.Tasks;
 using Abc.Data.Common;
+using Abc.Data.Quantity;
 using Abc.Domain.Common;
+using Abc.Infra.Quantity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Abc.Infra
@@ -10,6 +12,7 @@ namespace Abc.Infra
         where TData : UniqueEntityData, new()
         where TDomain : Entity<TData>, new()
     {
+
         protected UniqueEntityRepository(DbContext c, DbSet<TData> s) : base(c, s)
         {
         }

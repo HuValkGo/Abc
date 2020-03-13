@@ -16,7 +16,7 @@ namespace Abc.Infra
     {
         protected internal DbContext db;
         protected internal DbSet<TData> dbSet;
-        protected  BaseRepository(DbContext c,DbSet<TData>s)
+        protected  BaseRepository(DbContext c, DbSet<TData>s)
         {
             db = c;
             dbSet = s;

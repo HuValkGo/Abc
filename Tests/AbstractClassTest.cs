@@ -1,7 +1,6 @@
-﻿using Abc.Tests;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Tests
+namespace Abc.Tests
 {
     public abstract class AbstractClassTest<TClass, TBaseClass> :BaseTest<TClass,TBaseClass>
     {

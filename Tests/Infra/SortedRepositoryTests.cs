@@ -6,7 +6,6 @@ using Abc.Data.Quantity;
 using Abc.Domain.Quantity;
 using Abc.Infra;
 using Abc.Infra.Quantity;
-using Tests;
 using System.Threading.Tasks;
 using Abc.Aids;
 using Microsoft.EntityFrameworkCore;
