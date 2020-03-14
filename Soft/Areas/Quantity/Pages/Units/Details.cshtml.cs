@@ -7,7 +7,7 @@ namespace Abc.Soft.Areas.Quantity.Pages.Units
 {
     public class DetailsModel : UnitsPage
     {
-        public DetailsModel(IUnitsRepository r) : base(r) { }
+        public DetailsModel(IUnitsRepository r,IMeasuresRepository m) : base(r,m) { }
         public async Task<IActionResult> OnGetAsync(string id)
         {
             await getObject(id);

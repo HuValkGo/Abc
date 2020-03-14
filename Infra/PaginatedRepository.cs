@@ -47,8 +47,10 @@ namespace Abc.Infra
 
         private IQueryable<TData> addSkipAndTake(IQueryable<TData> query)
         {
-            var q = query.Skip((PageIndex - 1) * PageSize).Take(PageSize);
-            return q;
+            if (PageIndex < 1) return query;
+            return query
+                .Skip((PageIndex - 1) * PageSize)
+                .Take(PageSize);
         }
     }
 }

@@ -7,7 +7,7 @@ using Abc.Facade.Common;
 
 namespace Abc.Facade.Quantity
 {
-    public class UnitView :DefinedView 
+    public sealed class UnitView :DefinedView 
     {
         [Required]
         [DisplayName("Measure")]

@@ -1,12 +1,12 @@
-﻿using Abc.Data.Common;
+﻿using Abc.Facade.Common;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Abc.Tests.Data.Common
+namespace Abc.Tests.Facade.Common
 {
     [TestClass]
-    public class PeriodDataTests : AbstractClassTests<PeriodData, object>
+    public class PeriodViewTests : AbstractClassTests<PeriodView, object>
     {
-        private class testClass : PeriodData { }
+        private class testClass : PeriodView { }
         [TestInitialize]
         public override void TestInitialize()
         {

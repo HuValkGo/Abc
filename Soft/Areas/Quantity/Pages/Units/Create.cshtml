@@ -6,8 +6,9 @@
     Layout = "_Create";
 }
     <body>
-        @Html.EditControlsFor(model => model.Item.MeasureId)
+
         @Html.EditControlsFor(model => model.Item.Id)
+    @Html.EditControlsForDropDown(model => model.Item.MeasureId,Model.Measures)
         @Html.EditControlsFor(model => model.Item.Code)
         @Html.EditControlsFor(model => model.Item.Name)
         @Html.EditControlsFor(model => model.Item.Definition)

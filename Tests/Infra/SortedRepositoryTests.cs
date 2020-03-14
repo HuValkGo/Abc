@@ -14,7 +14,7 @@ using System.Reflection;
 namespace Abc.Tests.Infra
 {
     [TestClass]
-    public class SortedRepositoryTests : AbstractClassTest<SortedRepository<Measure, MeasureData>,
+    public class SortedRepositoryTests : AbstractClassTests<SortedRepository<Measure, MeasureData>,
         BaseRepository<Measure, MeasureData>>
     {
         private class testClass : SortedRepository<Measure, MeasureData>

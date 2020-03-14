@@ -10,7 +10,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Abc.Tests.Domain.Common
 {
     [TestClass]
-    public class EntityTests :AbstractClassTest<Entity<MeasureData>,object>
+    public class EntityTests :AbstractClassTests<Entity<MeasureData>,object>
     {
         [TestInitialize]
         public override void TestInitialize()
