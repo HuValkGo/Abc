@@ -7,35 +7,19 @@ namespace Abc.Facade.Quantity
     {
         public static Unit Create(UnitView v)
         {
-            var o = new Unit
+            var o = new Unit();
             {
-                Data =
-                {
-                    Id = v.Id,
-                    MeasureId = v.MeasureId,
-                    Name = v.Name,
-                    Code = v.Code,
-                    Definition = v.Definition,
-                    ValidFrom = v.ValidFrom,
-                    ValidTo = v.ValidTo
-
-                }
-            };
+                Copy.Members(v, o.Data);
+               
+            }
             return o;
         }
-
         public static UnitView Create(Unit o)
         {
-            var v = new UnitView
+            var v = new UnitView();
             {
-                Id = o.Data.Id,
-                MeasureId = o.Data.MeasureId,
-                Name = o.Data.Name,
-                Code = o.Data.Code,
-                Definition = o.Data.Definition,
-                ValidFrom = o.Data.ValidFrom,
-                ValidTo = o.Data.ValidTo
-            };
+                Copy.Members(o.Data,v);
+            }
             return v;
         }
     }
