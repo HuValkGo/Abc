@@ -11,9 +11,9 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 namespace Abc.Pages
 {
     public abstract class BasePage<TRepository,TDomain,TView,TData> :PageModel
-    where TRepository:ICrudMethods<TDomain>, ISorting,ISearching,IPaging
+    where TRepository:ICrudMethods<TDomain>, ISorting,IFiltering,IPaging
     {
-        private readonly TRepository db;
+        private TRepository db;
 
         protected internal BasePage(TRepository r)
         {
@@ -27,9 +27,16 @@ namespace Abc.Pages
         public string PageTitle { get; set; }
         public string PageSubtitle { get; set; }
 
-        public string CurrentSort { get; set; }
-        public string CurrentFilter { get; set; }
-        public string SearchString { get; set; }
+        public string SortOrder {
+            get=>db.SortOrder;
+            set=>db.SortOrder=value;
+
+        }
+        public string SearchString
+        {
+            get => db.SearchString;
+            set=> db.SearchString=value;
+        }
 
         public int PageIndex
         {
@@ -40,6 +47,17 @@ namespace Abc.Pages
         public bool HasNextPage => db.HasNextPage;
 
         public int TotalPages => db.TotalPages;
+
+        public string FixedFilter {
+            get=>db.FixedFilter;
+            set=>db.FixedFilter=value;
+        }
+
+        public string FixedValue
+        {
+            get=>db.FixedValue;
+            set=>db.FixedValue=value;
+        }
 
         protected internal async Task<bool> addObject()
         {
@@ -78,16 +96,25 @@ namespace Abc.Pages
         {
             var name = GetMember.Name(e);
             string sortOrder;
-            if (string.IsNullOrEmpty(CurrentSort)) sortOrder = name;
-            else if (!CurrentSort.StartsWith(name)) sortOrder = name;
-            else if (CurrentSort.EndsWith("_desc")) sortOrder = name;
+            if (string.IsNullOrEmpty(SortOrder)) sortOrder = name;
+            else if (!SortOrder.StartsWith(name)) sortOrder = name;
+            else if (SortOrder.EndsWith("_desc")) sortOrder = name;
             else sortOrder = name + "_desc";
-            return $"{page}?sortOrder={sortOrder}&currentFilter={CurrentFilter}";
+            return $"{page}?sortOrder={sortOrder}&currentFilter={SearchString}";
         }
-        protected internal async Task getList(string sortOrder, string currentFilter, string searchString, int? pageIndex)
+        protected internal async Task getList(string sortOrder, string currentFilter,
+            string searchString, int? pageIndex, string fixedFilter, string fixedValue)
         {
-            sortOrder = string.IsNullOrEmpty(sortOrder) ? "Name" : sortOrder;
-            CurrentSort = sortOrder;
+            FixedFilter = fixedFilter;
+            FixedValue = fixedValue;
+            SortOrder = sortOrder;
+            SearchString = getSearchString(currentFilter,searchString,ref pageIndex);
+            PageIndex = pageIndex ?? 1;
+            Items =await getList();
+            
+        }
+        internal string getSearchString(string currentFilter, string searchString, ref int? pageIndex)
+        {
             if (searchString != null)
             {
                 pageIndex = 1;
@@ -97,17 +124,17 @@ namespace Abc.Pages
                 searchString = currentFilter;
             }
 
-            CurrentFilter = searchString;
-            db.SortOrder = sortOrder;
-            SearchString = CurrentFilter;
-            db.SearchString = searchString;
-            PageIndex = pageIndex ?? 1;
+            return searchString;
+        }
+        internal async Task<List<TView>> getList()
+        {
             var l = await db.Get();
-            Items = new List<TView >();
+            var list  = new List<TView>();
             foreach (var e in l)
             {
-                Items.Add(toView( e));
+                list.Add(toView(e));
             }
+            return list;
         }
     }
 }
