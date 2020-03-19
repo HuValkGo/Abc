@@ -25,7 +25,12 @@ namespace Abc.Pages
         public abstract string ItemId { get; }
 
         public string PageTitle { get; set; }
-        public string PageSubtitle { get; set; }
+        public string PageSubTitle => getPageSubTitle();
+
+        protected internal virtual string getPageSubTitle()
+        {
+            return string.Empty;
+        }
 
         public string SortOrder {
             get=>db.SortOrder;
