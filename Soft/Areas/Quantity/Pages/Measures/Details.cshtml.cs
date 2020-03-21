@@ -11,9 +11,8 @@ namespace Abc.Soft.Areas.Quantity.Pages.Measures
         public DetailsModel(IMeasuresRepository r) : base(r) { }
         public async Task<IActionResult> OnGetAsync(string id, string fixedFilter, string fixedValue)
         {
-            FixedFilter = fixedFilter;
-            FixedValue = fixedValue;
-            await getObject(id);
+
+            await getObject(id,fixedValue,fixedValue);
             return Page();
         }
     }

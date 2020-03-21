@@ -26,6 +26,16 @@ namespace Abc.Pages
 
         public string PageTitle { get; set; }
         public string PageSubTitle => getPageSubTitle();
+        public string IndexUrl => getIndexUrl();
+
+        protected internal string getIndexUrl()
+        {
+            return $"{PageUrl}/Index?fixedFilter={FixedFilter}&fixedValue={FixedValue}";
+        }
+
+        public string PageUrl => getPageUrl();
+
+        protected internal abstract string getPageUrl();
 
         protected internal virtual string getPageSubTitle()
         {
@@ -64,8 +74,10 @@ namespace Abc.Pages
             set=>db.FixedValue=value;
         }
 
-        protected internal async Task<bool> addObject()
+        protected internal async Task<bool> addObject(string fixedFilter,string fixedValue)
         {
+            FixedFilter = fixedFilter;
+            FixedValue = fixedValue;
             try
             {
                 if (!ModelState.IsValid) return false;
@@ -81,20 +93,26 @@ namespace Abc.Pages
 
         protected internal abstract TDomain toObject(TView view);
 
-        protected internal async Task updateObject()
+        protected internal async Task updateObject(string fixedFilter,string fixedValue)
         {
+            FixedValue = fixedValue;
+            FixedFilter = fixedFilter;
             await db.Update(toObject( Item));
         }
-        protected internal async Task getObject(string id)
+        protected internal async Task getObject(string id,string fixedFilter, string fixedValue)
         {
+            FixedFilter = fixedFilter;
+            FixedValue = fixedValue;
             var o = await db.Get(id);
             Item = toView(o);
         }
 
         protected internal abstract TView toView(TDomain obj);
 
-        protected internal async Task deleteObject(string id)
+        protected internal async Task deleteObject(string id,string fixedFilter,string fixedValue)
         {
+            FixedFilter = fixedFilter;
+            FixedValue = fixedValue;
             await db.Delete(id);
         }
         public string GetSortSorting(Expression<Func<TData, object>> e, string page)

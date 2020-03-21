@@ -7,7 +7,7 @@
 
 @{
     Layout = "_Index";
-    var page = "/Quantity/Units";
+    var page = Model.PageUrl;
 }
 @section Create {
     @Html.HypertextLinkFor( string.Empty, new Link(Constants.CreateNewLinkTitle,$"{page}/Create?fixedFilter={Model.FixedFilter}&fixedValue={Model.FixedValue}"))

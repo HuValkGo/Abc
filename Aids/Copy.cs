@@ -1,4 +1,4 @@
-﻿namespace Abc.Facade.Quantity
+﻿namespace Abc.Aids
 {
     public static class Copy
     {
