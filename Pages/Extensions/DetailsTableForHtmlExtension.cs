@@ -18,14 +18,14 @@ namespace Abc.Pages.Extensions {
             return new HtmlContentBuilder(htmlStrings);
         }
 
-        internal static IList<object> createString<TModel, TResult>(IHtmlHelper<TModel> htmlHelper,
-            Expression<Func<TModel, IList<TResult>>> expression, Expression<Func<TResult, object>>[] properties)
-            where TModel : PageModel {
+        internal static IList<object >createString<TModel, TResult>(IHtmlHelper<TModel> htmlHelper, Expression<Func<TModel, IList<TResult>>> expression, Expression<Func<TResult, object>>[] properties) where TModel : PageModel
+        {
             var htmlStrings = new List<object>();
             var f = expression.Compile();
             var items = f(htmlHelper.ViewData.Model);
 
-            if (items.Count > 0) {
+            if (items.Count > 0)
+            {
                 htmlStrings.Add(new HtmlString("<dt class=\"col-sm-2\">"));
                 htmlStrings.Add(htmlHelper.DisplayNameFor(expression));
                 htmlStrings.Add(new HtmlString("</dt>"));
@@ -35,7 +35,8 @@ namespace Abc.Pages.Extensions {
                 htmlStrings.Add(new HtmlString("<thead>"));
                 htmlStrings.Add(new HtmlString("<tr>"));
 
-                foreach (var p in properties) {
+                foreach (var p in properties)
+                {
                     htmlStrings.Add(new HtmlString("<th>"));
                     htmlStrings.Add(GetMember.DisplayName(p));
                     htmlStrings.Add(new HtmlString("</th>"));
@@ -45,10 +46,12 @@ namespace Abc.Pages.Extensions {
                 htmlStrings.Add(new HtmlString("</thead>"));
                 htmlStrings.Add(new HtmlString("<tbody>"));
 
-                foreach (var e in items) {
+                foreach (var e in items)
+                {
                     htmlStrings.Add(new HtmlString("<tr>"));
 
-                    foreach (var p in properties) {
+                    foreach (var p in properties)
+                    {
                         htmlStrings.Add(new HtmlString("<td>"));
                         var x = p.Compile();
                         htmlStrings.Add(x(e).ToString());
@@ -61,11 +64,10 @@ namespace Abc.Pages.Extensions {
                 htmlStrings.Add(new HtmlString("</tbody>"));
                 htmlStrings.Add(new HtmlString("</table>"));
                 htmlStrings.Add(new HtmlString("</dd>"));
+
             }
 
             return htmlStrings;
         }
-
     }
-
 }

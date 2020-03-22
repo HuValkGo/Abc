@@ -11,12 +11,12 @@ namespace Abc.Pages.Extensions
         public static IHtmlContent EditControlsFor<TClassType, TPropertyType>(
             this IHtmlHelper<TClassType> htmlHelper, Expression<Func<TClassType, TPropertyType>> expression)
         {
-            var s = HtmlString(htmlHelper,expression);
+            var s = htmlString(htmlHelper,expression);
 
             return new HtmlContentBuilder(s);
         }
 
-        internal static List<object> HtmlString<TClassType, TPropertyType>(IHtmlHelper<TClassType> htmlHelper, Expression<Func<TClassType, TPropertyType>> expression)
+        internal static List<object> htmlString<TClassType, TPropertyType>(IHtmlHelper<TClassType> htmlHelper, Expression<Func<TClassType, TPropertyType>> expression)
         {
             return new List<object>
             {
