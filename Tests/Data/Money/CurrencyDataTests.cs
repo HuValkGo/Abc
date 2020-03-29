@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Abc.Data.Common;
+﻿using Abc.Data.Common;
 using Abc.Data.Money;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

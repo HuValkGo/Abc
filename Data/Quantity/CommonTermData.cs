@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Abc.Data.Common;
+﻿using Abc.Data.Common;
 
 namespace Abc.Data.Quantity
 {
-    public class CommonTerm:PeriodData
+    public abstract class CommonTermData:PeriodData
     {
          public string MasterId { get; set; }
          public string TermId { get; set; }

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Abc.Pages.Extensions;
+﻿using Abc.Pages.Extensions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Abc.Tests.Pages.Extensions

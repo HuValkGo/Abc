@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Abc.Data.Quantity;
+﻿using Abc.Data.Quantity;
 using Abc.Domain.Common;
 
 namespace Abc.Domain.Quantity

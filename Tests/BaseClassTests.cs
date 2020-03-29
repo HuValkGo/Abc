@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Globalization;
 using Abc.Aids;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 

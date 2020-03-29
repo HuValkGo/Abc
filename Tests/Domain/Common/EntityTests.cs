@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Abc.Aids;
-using Abc.Data.Common;
+﻿using Abc.Aids;
 using Abc.Data.Quantity;
 using Abc.Domain.Common;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
