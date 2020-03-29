@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Abc.Data.Common;
 using Abc.Domain.Common;
+using Abc.Domain.Quantity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Abc.Infra
@@ -18,6 +19,11 @@ namespace Abc.Infra
         protected override async Task<TData> getData(string id)
         {
             return await dbSet.FirstOrDefaultAsync(m => m.Id == id);
+        }
+
+        protected override string getId(TDomain entity)
+        {
+            return entity?.Data?.Id;
         }
     }
 }
