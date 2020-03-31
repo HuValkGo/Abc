@@ -11,17 +11,17 @@ namespace Abc.Pages.Extensions
         public static IHtmlContent DisplayControlsFor<TClassType, TPropertyType>(
             this IHtmlHelper<TClassType> htmlHelper, Expression<Func<TClassType, TPropertyType>> expression)
         {
-            var s = HtmlString(htmlHelper, expression);
+            var s = htmlStrings(htmlHelper, expression);
 
             return new HtmlContentBuilder(s);
         }
         public static IHtmlContent DisplayControlsFor<TModel, TResult>(this IHtmlHelper<TModel> htmlHelper,
             Expression<Func<TModel, TResult>> expression, string value)
         {
-            var s = htmlString(htmlHelper, expression, value);
+            var s = htmlStrings(htmlHelper, expression, value);
             return new HtmlContentBuilder(s);
         }
-        internal static List<object> HtmlString<TClassType, TPropertyType>(IHtmlHelper<TClassType> htmlHelper,
+        internal static List<object> htmlStrings<TClassType, TPropertyType>(IHtmlHelper<TClassType> htmlHelper,
             Expression<Func<TClassType, TPropertyType>> expression)
         {
             return new List<object>
@@ -34,7 +34,7 @@ namespace Abc.Pages.Extensions
                 new HtmlString("</dd>")
             };
         }
-        private static List<object> htmlString<TModel, TResult>(IHtmlHelper<TModel> htmlHelper,
+        private static List<object> htmlStrings<TModel, TResult>(IHtmlHelper<TModel> htmlHelper,
             Expression<Func<TModel, TResult>> expression, string value)
         {
             return new List<object>

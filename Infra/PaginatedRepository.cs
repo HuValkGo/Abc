@@ -11,11 +11,11 @@ namespace Abc.Infra
         where TData : PeriodData, new()
         where TDomain : Entity<TData>, new()
     {
-        public int PageSize { get; set; } = 5;
         public int PageIndex { get; set; }
         public int TotalPages => getTotalPages(PageSize);
         public bool HasNextPage => PageIndex < TotalPages;
         public bool HasPreviousPage => PageIndex > 1;
+        public int PageSize { get; set; } = 5;
 
         protected PaginatedRepository(DbContext c, DbSet<TData> s) : base(c, s)
         {
@@ -23,7 +23,7 @@ namespace Abc.Infra
         internal int getTotalPages(in int pageSize)
         {
             var count = getItemsCount();
-            var pages = CountTotalPages(count, pageSize );
+            var pages = CountTotalPages(count, pageSize);
             return pages;
         }
 
@@ -45,7 +45,7 @@ namespace Abc.Infra
             return query;
         }
 
-        private IQueryable<TData> addSkipAndTake(IQueryable<TData> query)
+        internal IQueryable<TData> addSkipAndTake(IQueryable<TData> query)
         {
             if (PageIndex < 1) return query;
             return query

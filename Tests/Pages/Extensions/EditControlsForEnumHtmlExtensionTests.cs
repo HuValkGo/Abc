@@ -9,7 +9,7 @@ namespace Abc.Tests.Pages.Extensions
         [TestInitialize]
         public virtual void TestInitialize()
         {
-            type = typeof(EditControlsForEnumHtmlExtension );
+            type = typeof(EditControlsForEnumHtmlExtension);
         }
 
         [TestMethod]
