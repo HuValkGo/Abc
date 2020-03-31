@@ -27,13 +27,13 @@ namespace Abc.Infra
             return query;
         }
 
-        private IQueryable<TData> addFixedFiltering(IQueryable<TData> query)
+        internal  IQueryable<TData> addFixedFiltering(IQueryable<TData> query)
         {
             var expression = createFixedWhereExpression();
             return expression is null ? query : query.Where(expression);
         }
 
-        private Expression< Func< TData,bool>> createFixedWhereExpression()
+        internal Expression< Func< TData,bool>> createFixedWhereExpression()
         {
             if (FixedFilter is null) return null;
             if (FixedValue is null) return null;
@@ -61,6 +61,7 @@ namespace Abc.Infra
 
         internal Expression<Func<TData,bool>>createWhereExpression()
         {
+            if (string.IsNullOrWhiteSpace(SearchString)) return null;
             var param = Expression.Parameter(typeof(TData),"s");
             Expression predicate = null;
 
