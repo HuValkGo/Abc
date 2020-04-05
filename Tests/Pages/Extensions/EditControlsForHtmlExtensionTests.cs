@@ -14,7 +14,6 @@ namespace Abc.Tests.Pages.Extensions
         [TestMethod]
         public void EditControlsForTest()
         {
-            //extension meetod:
             var obj = new htmlHelperMock<UnitView>().EditControlsFor(x => x.MeasureId);
             Assert.IsInstanceOfType(obj, typeof(HtmlContentBuilder));
         }

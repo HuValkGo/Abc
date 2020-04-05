@@ -32,16 +32,13 @@ namespace Abc.Tests.Domain.Common
         public void DataIsNullTest()
         {
             var d = GetRandom.Object<MeasureData>();
-            Assert.IsNotNull(obj.Data);
+            Assert.IsNull(obj.Data);
             obj.Data = d;
             Assert.AreSame(d, obj.Data);
         }
         [TestMethod]
         public void CanSetNullDataTest()
         {
-            var d = GetRandom.Object<MeasureData>();
-           obj =new testClass(d);
-            Assert.IsNotNull(obj.Data);
             obj.Data = null;
             Assert.IsNull(obj.Data);
         }

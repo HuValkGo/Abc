@@ -1,4 +1,5 @@
 ﻿using Abc.Aids;
+using Abc.Data.Quantity;
 using Abc.Domain.Quantity;
 
 namespace Abc.Facade.Quantity
@@ -8,15 +9,16 @@ namespace Abc.Facade.Quantity
 
         public static Measure Create(MeasureView v)
         {
-            var o = new Measure();
+            var d = new MeasureData();
             {
-                Copy.Members(v, o.Data);
+                Copy.Members(v,d);
             }
-            return o;
+            return new Measure(d);
         }
         public static MeasureView Create(Measure o)
         {
             var v = new MeasureView();
+            if(!(o?.Data is null))
             {
                 Copy.Members(o.Data, v);
             }

@@ -60,10 +60,10 @@ namespace Abc.Tests.Infra.Quantity {
             var builder = o.RunOnModelCreating();
             QuantityDbContext.InitializeTables(builder);
             testEntity<SystemOfUnitsData>(builder);
-           // testEntity<MeasureTermData>(builder, x => x.TermId, x => x.MasterId);
+           testEntity<MeasureTermData>(builder, x => x.TermId, x => x.MasterId);
             testEntity<MeasureData>(builder);
             testEntity<UnitData>(builder);
-            //testEntity<UnitTermData>(builder, x => x.TermId, x => x.MasterId);
+            testEntity<UnitTermData>(builder, x => x.TermId, x => x.MasterId);
             testEntity<UnitFactorData>(builder, x =>x.UnitId, x=> x.SystemOfUnitsId);
         }
 
@@ -78,13 +78,13 @@ namespace Abc.Tests.Infra.Quantity {
         [TestMethod] public void UnitFactorsTest() =>
             isNullableProperty(obj, nameof(obj.UnitFactors), typeof(DbSet<UnitFactorData>));
 
-        //[TestMethod]
-        //public void UnitTermsTest() =>
-        //    isNullableProperty(obj, nameof(obj.UnitTerms), typeof(DbSet<UnitTermData>));
+        [TestMethod]
+        public void UnitTermsTest() =>
+            isNullableProperty(obj, nameof(obj.UnitTerms), typeof(DbSet<UnitTermData>));
 
-        ////[TestMethod]
-        //public void MeasureTermsTest() =>
-        //    isNullableProperty(obj, nameof(obj.MeasureTerms), typeof(DbSet<MeasureTermData>));
+        [TestMethod]
+        public void MeasureTermsTest() =>
+           isNullableProperty(obj, nameof(obj.MeasureTerms), typeof(DbSet<MeasureTermData>));
 
     }
 
