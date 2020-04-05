@@ -11,8 +11,8 @@ namespace Abc.Infra.Quantity
         }
         public DbSet<MeasureData> Measures { get; set; }
         public DbSet<UnitData> Units { get; set; }
-        public DbSet<MeasureData> SystemsOfUnits { get; set; }
-        public DbSet<MeasureData> UnitFactors{ get; set; }
+        public DbSet<SystemOfUnitsData> SystemsOfUnits { get; set; }
+        public DbSet<UnitFactorData> UnitFactors{ get; set; }
         public DbSet<MeasureTermData> MeasureTerms { get; set; }
         public DbSet<UnitTermData> UnitTerms{ get; set; }
         protected override void OnModelCreating(ModelBuilder builder)

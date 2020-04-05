@@ -63,7 +63,7 @@ namespace Abc.Tests.Infra.Quantity {
            // testEntity<MeasureTermData>(builder, x => x.TermId, x => x.MasterId);
             testEntity<MeasureData>(builder);
             testEntity<UnitData>(builder);
-           // testEntity<UnitTermData>(builder, x => x.TermId, x => x.MasterId);
+            //testEntity<UnitTermData>(builder, x => x.TermId, x => x.MasterId);
             testEntity<UnitFactorData>(builder, x =>x.UnitId, x=> x.SystemOfUnitsId);
         }
 
@@ -82,7 +82,7 @@ namespace Abc.Tests.Infra.Quantity {
         //public void UnitTermsTest() =>
         //    isNullableProperty(obj, nameof(obj.UnitTerms), typeof(DbSet<UnitTermData>));
 
-        //[TestMethod]
+        ////[TestMethod]
         //public void MeasureTermsTest() =>
         //    isNullableProperty(obj, nameof(obj.MeasureTerms), typeof(DbSet<MeasureTermData>));
 

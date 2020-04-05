@@ -63,6 +63,21 @@ namespace Abc.Soft.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "MeasureTerms",
+                columns: table => new
+                {
+                    MasterId = table.Column<string>(nullable: false),
+                    TermId = table.Column<string>(nullable: false),
+                    ValidFrom = table.Column<DateTime>(nullable: true),
+                    ValidTo = table.Column<DateTime>(nullable: true),
+                    Power = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MeasureTerms", x => new { x.MasterId, x.TermId });
+                });
+
+            migrationBuilder.CreateTable(
                 name: "SystemsOfUnits",
                 columns: table => new
                 {
@@ -108,6 +123,21 @@ namespace Abc.Soft.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Units", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UnitTerms",
+                columns: table => new
+                {
+                    MasterId = table.Column<string>(nullable: false),
+                    TermId = table.Column<string>(nullable: false),
+                    ValidFrom = table.Column<DateTime>(nullable: true),
+                    ValidTo = table.Column<DateTime>(nullable: true),
+                    Power = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UnitTerms", x => new { x.MasterId, x.TermId });
                 });
 
             migrationBuilder.CreateTable(
@@ -277,6 +307,9 @@ namespace Abc.Soft.Migrations
                 name: "Measures");
 
             migrationBuilder.DropTable(
+                name: "MeasureTerms");
+
+            migrationBuilder.DropTable(
                 name: "SystemsOfUnits");
 
             migrationBuilder.DropTable(
@@ -284,6 +317,9 @@ namespace Abc.Soft.Migrations
 
             migrationBuilder.DropTable(
                 name: "Units");
+
+            migrationBuilder.DropTable(
+                name: "UnitTerms");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

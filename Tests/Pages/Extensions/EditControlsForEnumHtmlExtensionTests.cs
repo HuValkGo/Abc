@@ -1,21 +1,43 @@
-﻿using Abc.Pages.Extensions;
+﻿using System;
+using System.Collections.Generic;
+using Abc.Facade.Common;
+using Abc.Pages.Extensions;
+using Abc.Core;
+using Microsoft.AspNetCore.Html;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Abc.Tests.Pages.Extensions
 {
+
     [TestClass]
     public class EditControlsForEnumHtmlExtensionTests : BaseTests
     {
-        [TestInitialize]
-        public virtual void TestInitialize()
+        private class testClass : NamedView
         {
-            type = typeof(EditControlsForEnumHtmlExtension);
+            public IsoGender Gender { get; set; }
         }
+
+        [TestInitialize] public virtual void TestInitialize() => type = typeof(EditControlsForEnumHtmlExtension);
 
         [TestMethod]
         public void EditControlsForEnumTest()
         {
-            Assert.Inconclusive();
+            var obj = new htmlHelperMock<testClass>().EditControlsForEnum(x => x.Gender);
+            Assert.IsInstanceOfType(obj, typeof(HtmlContentBuilder));
         }
+
+        [TestMethod]
+        public void HtmlStringsTest()
+        {
+            var selectList = new SelectList(Enum.GetNames(typeof(IsoGender)));
+            var expected = new List<string> { "<div", "LabelFor", "DropDownListFor", "ValidationMessageFor", "</div>" };
+            var actual = EditControlsForEnumHtmlExtension.htmlStrings(new htmlHelperMock<testClass>(),
+                x => x.Gender, selectList);
+            TestHtml.Strings(actual, expected);
+        }
+
+
     }
+
 }
