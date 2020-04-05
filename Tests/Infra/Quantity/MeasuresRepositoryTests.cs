@@ -14,56 +14,22 @@ namespace Abc.Tests.Infra.Quantity
     [TestClass]
     public class MeasuresRepositoryTests:RepositoryTests<MeasuresRepository,Measure,MeasureData>
     {
-        private QuantityDbContext db;
-        private int count;
         [TestInitialize]
         public override void TestInitialize()
         {
-            base.TestInitialize();
 
             var options = new DbContextOptionsBuilder<QuantityDbContext>()
                 .UseInMemoryDatabase("TestDb")
                 .Options;
             db = new QuantityDbContext(options);
-            obj = new MeasuresRepository(db);
-            count = GetRandom.UInt8(20, 40);
-            cleanDbSet();
-            addItems();
-        }
-
-        [TestCleanup]
-        public void TestCleanup()
-        {
-            cleanDbSet();
-        }
-
-        private void cleanDbSet()
-        {
-            foreach (var p in db.Measures)
-            {
-                db.Entry(p).State = EntityState.Deleted;
-            }
-
-            db.SaveChanges();
-        }
-
-        private void addItems()
-        {
-            for (var i = 0; i < count; i++)
-                obj.Add(new Measure(GetRandom.Object<MeasureData>())).GetAwaiter();
+            dbSet = ((QuantityDbContext)db).Measures;
+            obj = new MeasuresRepository((QuantityDbContext)db);
+            base.TestInitialize();
         }
         protected override Type getBaseType()
         {
             return typeof(UniqueEntityRepository<Measure, MeasureData>);
         }
-
-        protected override void testGetList()
-        {
-            obj.PageIndex = GetRandom.Int32(2, obj.TotalPages - 1);
-            var l = obj.Get().GetAwaiter().GetResult();
-            Assert.AreEqual(obj.PageSize, l.Count);
-        }
-
         protected override string getId(MeasureData d) => d.Id;
 
         protected override Measure getObject(MeasureData d) =>new Measure(d);
