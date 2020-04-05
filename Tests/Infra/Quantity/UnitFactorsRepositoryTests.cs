@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Abc.Aids;
 using Abc.Data.Quantity;
 using Abc.Domain.Quantity;
 using Abc.Infra;
@@ -11,7 +12,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Abc.Tests.Infra.Quantity
 {
     [TestClass]
-    public class UnitFactorsRepositoryTests: RepositoryTests<MeasuresRepository, Measure, MeasureData>
+    public class UnitFactorsRepositoryTests: RepositoryTests<UnitFactorsRepository, UnitFactor, UnitFactorData>
     {
         [TestInitialize]
         public override void TestInitialize()
@@ -21,18 +22,25 @@ namespace Abc.Tests.Infra.Quantity
                 .UseInMemoryDatabase("TestDb")
                 .Options;
             db = new QuantityDbContext(options);
-            dbSet = ((QuantityDbContext)db).Measures;
-            obj = new MeasuresRepository((QuantityDbContext)db);
+            dbSet = ((QuantityDbContext)db).UnitFactors;
+            obj = new UnitFactorsRepository((QuantityDbContext)db);
             base.TestInitialize();
         }
         protected override Type getBaseType()
         {
-            return typeof(UniqueEntityRepository<Measure, MeasureData>);
+            return typeof(PaginatedRepository<UnitFactor,UnitFactorData>);
         }
-        protected override string getId(MeasureData d) => d.Id;
 
-        protected override Measure getObject(MeasureData d) => new Measure(d);
+        protected override string getId(UnitFactorData d) => $"{d.SystemOfUnitsId}.{d.UnitId}";
 
-        protected override void setId(MeasureData d, string id) => d.Id = id;
+        protected override UnitFactor getObject(UnitFactorData d) => new UnitFactor(d);
+
+        protected override void setId(UnitFactorData d, string id)
+        {
+            var systemOfUnitsId = GetString.Head(id);
+            var unitId = GetString.Tail(id);
+            d.SystemOfUnitsId = systemOfUnitsId;
+            d.UnitId = unitId;
+        }
     }
 }

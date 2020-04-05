@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Abc.Aids;
 using Abc.Data.Quantity;
 using Abc.Domain.Quantity;
 using Abc.Infra;
@@ -11,7 +12,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Abc.Tests.Infra.Quantity
 {
     [TestClass]
-    public class UnitTermsRepositoryTests:RepositoryTests<MeasuresRepository, Measure, MeasureData>
+    public class UnitTermsRepositoryTests : RepositoryTests<UnitTermsRepository, UnitTerm, UnitTermData>
     {
         [TestInitialize]
         public override void TestInitialize()
@@ -21,18 +22,26 @@ namespace Abc.Tests.Infra.Quantity
                 .UseInMemoryDatabase("TestDb")
                 .Options;
             db = new QuantityDbContext(options);
-            dbSet = ((QuantityDbContext)db).Measures;
-            obj = new MeasuresRepository((QuantityDbContext)db);
+            dbSet = ((QuantityDbContext) db).UnitTerms;
+            obj = new UnitTermsRepository((QuantityDbContext) db);
             base.TestInitialize();
         }
+
         protected override Type getBaseType()
         {
-            return typeof(UniqueEntityRepository<Measure, MeasureData>);
+            return typeof(PaginatedRepository<UnitTerm, UnitTermData>);
         }
-        protected override string getId(MeasureData d) => d.Id;
 
-        protected override Measure getObject(MeasureData d) => new Measure(d);
+        protected override string getId(UnitTermData d) => $"{d.MasterId}.{d.TermId}";
 
-        protected override void setId(MeasureData d, string id) => d.Id = id;
+        protected override UnitTerm getObject(UnitTermData d) => new UnitTerm(d);
+
+        protected override void setId(UnitTermData d, string id)
+        {
+            var masterId = GetString.Head(id);
+            var termId = GetString.Tail(id);
+            d.MasterId = masterId;
+            d.TermId = termId;
+        }
     }
 }
