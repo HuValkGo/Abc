@@ -1,14 +1,21 @@
 ﻿@page
+@using Abc.Aids
+@using Abc.Data.Quantity
 @using Abc.Pages.Extensions
-@model Abc.Soft.Areas.Quantity.Pages.SystemOfUnits.DeleteModel
+@model Abc.Soft.Areas.Quantity.Pages.SystemsOfUnits.DetailsModel
 
 @{
-    Layout = "_Delete";
+    Layout = "_Details";
+   
 }
 <body>
+
     @Html.DisplayControlsFor(model => model.Item.Code)
     @Html.DisplayControlsFor(model => model.Item.Name)
     @Html.DisplayControlsFor(model => model.Item.Definition)
     @Html.DisplayControlsFor(model => model.Item.ValidFrom)
     @Html.DisplayControlsFor(model => model.Item.ValidTo)
 </body>
+@section Details {
+    
+}
