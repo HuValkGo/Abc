@@ -1,0 +1,14 @@
+﻿@page
+@using Abc.Pages.Extensions
+@model Abc.Soft.Areas.Quantity.Pages.UnitFactors.CreateModel
+
+@{
+    Layout = "_Create";
+}
+    <body>
+    @Html.EditControlsFor(x => x.Item.SystemOfUnitsId)
+    @Html.EditControlsFor(x => x.Item.UnitId)
+    @Html.EditControlsFor(x => x.Item.Factor)
+    @Html.EditControlsFor(x => x.Item.ValidFrom)
+    @Html.EditControlsFor(x => x.Item.ValidTo)
+    </body>

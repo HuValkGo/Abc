@@ -27,6 +27,8 @@
                 @Html.TableRowFor(
                     page,
                     item.Id,
+                    Model.FixedValue,
+                    Model.FixedFilter,
                     Html.DisplayFor( modelItem=>item.Id),
                     Html.DisplayFor( modelItem=>item.Name ),
                     Html.DisplayFor( modelItem=>item.Code),
