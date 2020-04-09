@@ -45,7 +45,9 @@ namespace Abc.Infra
             Expression body = Expression.Property(param, p);
             if (p.PropertyType != typeof(string))
                 body = Expression.Call(body, "ToString", null);
-            body = Expression.Call(body, "Contains", null, Expression.Constant(FixedValue));
+            body = Expression.Equal(
+                body,
+                Expression.Constant(FixedValue));
             var predicate = body;
 
             return Expression.Lambda<Func<TData, bool>>(predicate, param);

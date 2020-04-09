@@ -1,16 +1,20 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
 using Abc.Data.Common;
 using Abc.Domain.Common;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Abc.Tests
 {
-    internal class baseTestRepository<TObj,TData> 
-        where TObj:Entity<TData>
-        where TData:UniqueEntityData, new()
+    [TestClass]
+    internal abstract class baseTestRepositoryForPeriodEntity<TObj, TData>
+        where TObj : Entity<TData>
+        where TData : PeriodData, new()
     {
         internal readonly List<TObj> list;
-        public baseTestRepository()
+        public baseTestRepositoryForPeriodEntity()
         {
             list = new List<TObj>();
         }
@@ -19,19 +23,20 @@ namespace Abc.Tests
             await Task.CompletedTask;
             return list;
         }
-
         public async Task<TObj> Get(string id)
         {
             await Task.CompletedTask;
-            return list.Find(x=>x.Data.Id == id);
+            return list.Find(x => isThis(x, id));
         }
 
         public async Task Delete(string id)
         {
             await Task.CompletedTask;
-            var obj = list.Find(x => x.Data.Id == id);
+            var obj = list.Find(x => isThis(x, id));
             list.Remove(obj);
         }
+
+        protected abstract bool isThis(TObj entity, string id);
 
         public async Task Add(TObj obj)
         {
@@ -41,17 +46,21 @@ namespace Abc.Tests
 
         public async Task Update(TObj obj)
         {
-            await Delete(obj.Data.Id);
+            await Delete(getId(obj));
             list.Add(obj);
         }
+
+        protected abstract string getId(TObj entity);
+
+        public string SortOrder { get; set; }
+        public string SearchString { get; set; }
+        public string FixedFilter { get; set; }
+        public string FixedValue { get; set; }
         public int PageIndex { get; set; }
         public int PageSize { get; set; }
         public int TotalPages { get; set; }
         public bool HasNextPage { get; set; }
         public bool HasPreviousPage { get; set; }
-        public string SortOrder { get; set; }
-        public string SearchString { get; set; }
-        public string FixedFilter { get; set; }
-        public string FixedValue { get; set; }
     }
 }
+

@@ -1,16 +1,20 @@
-﻿using System.Collections.Generic;
+﻿using Abc.Domain.Common;
+using System;
+using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
 using Abc.Data.Common;
-using Abc.Domain.Common;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Abc.Tests
 {
-    internal class baseTestRepository<TObj,TData> 
-        where TObj:Entity<TData>
-        where TData:UniqueEntityData, new()
+    [TestClass]
+    internal class baseTestRepositoryForUniqueEntity<TObj, TData>
+        where TObj : Entity<TData>
+        where TData : UniqueEntityData, new()
     {
         internal readonly List<TObj> list;
-        public baseTestRepository()
+        public baseTestRepositoryForUniqueEntity()
         {
             list = new List<TObj>();
         }
@@ -19,11 +23,10 @@ namespace Abc.Tests
             await Task.CompletedTask;
             return list;
         }
-
         public async Task<TObj> Get(string id)
         {
             await Task.CompletedTask;
-            return list.Find(x=>x.Data.Id == id);
+            return list.Find(x => x.Data.Id == id);
         }
 
         public async Task Delete(string id)
@@ -44,14 +47,16 @@ namespace Abc.Tests
             await Delete(obj.Data.Id);
             list.Add(obj);
         }
+
+        public string SortOrder { get; set; }
+        public string SearchString { get; set; }
+        public string FixedFilter { get; set; }
+        public string FixedValue { get; set; }
         public int PageIndex { get; set; }
         public int PageSize { get; set; }
         public int TotalPages { get; set; }
         public bool HasNextPage { get; set; }
         public bool HasPreviousPage { get; set; }
-        public string SortOrder { get; set; }
-        public string SearchString { get; set; }
-        public string FixedFilter { get; set; }
-        public string FixedValue { get; set; }
     }
 }
+

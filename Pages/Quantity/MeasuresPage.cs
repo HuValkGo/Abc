@@ -11,9 +11,11 @@ namespace Abc.Pages.Quantity
     {
         protected internal readonly IMeasureTermsRepository terms;
 
-        protected internal MeasuresPage(IMeasuresRepository r) : base(r)
+        protected internal MeasuresPage(IMeasuresRepository r, IMeasureTermsRepository t) : base(r)
         {
             PageTitle = "Measures";
+            Terms = new List<MeasureTermView>();
+            terms = t;
         }
 
         public override string ItemId => Item?.Id ?? string.Empty;
@@ -28,6 +30,23 @@ namespace Abc.Pages.Quantity
         protected internal override MeasureView toView(Measure obj)
         {
             return MeasureViewFactory.Create(obj);
+        }
+
+        public IList<MeasureTermView> Terms { get; }
+
+        public void LoadDetails(MeasureView item)
+        {
+            Terms.Clear();
+
+            if (item is null) return;
+            terms.FixedFilter = GetMember.Name<MeasureTermData>(x => x.MasterId);
+            terms.FixedValue = item.Id;
+            var list = terms.Get().GetAwaiter().GetResult();
+
+            foreach (var e in list)
+            {
+                Terms.Add(MeasureTermViewFactory.Create(e));
+            }
         }
     }
 }

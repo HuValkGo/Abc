@@ -5,11 +5,11 @@
 @{
     Layout = "_Create";
 }
-<body>
-@Html.EditControlsFor(x => x.Item.MasterId)
-@Html.EditControlsFor(x => x.Item.TermId)
-@Html.EditControlsFor(x => x.Item.Power)
-@Html.EditControlsFor(x => x.Item.ValidFrom)
-@Html.EditControlsFor(x => x.Item.ValidTo)
+    <body>
+    @Html.EditControlsForDropDown(x => x.Item.MasterId, Model.Measures)
+    @Html.EditControlsForDropDown(x => x.Item.TermId, Model.Measures)
+    @Html.EditControlsFor(x => x.Item.Power)
+    @Html.EditControlsFor(x => x.Item.ValidFrom)
+    @Html.EditControlsFor(x => x.Item.ValidTo)
 
 </body> 

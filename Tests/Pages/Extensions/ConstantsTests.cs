@@ -18,7 +18,7 @@ namespace Abc.Tests.Pages.Extensions
         [TestMethod] public void EditLinkTitleTest() => Assert.AreEqual("Edit", Constants.EditLinkTitle);
         [TestMethod] public void DetailsLinkTitleTest() => Assert.AreEqual("Details", Constants.DetailsLinkTitle);
         [TestMethod] public void DeleteLinkTitleTest() => Assert.AreEqual("Delete", Constants.DeleteLinkTitle);
-        [TestMethod] public void BusinessMenuTitleTest() => Assert.AreEqual("Business", Constants.BusinessMenuTitle);
+        [TestMethod] public void SelectLinkTitleTest() => Assert.AreEqual("Select", Constants.SelectLinkTitle);
         [TestMethod] public void PartiesMenuTitleTest() => Assert.AreEqual("Parties", Constants.PartiesMenuTitle);
         [TestMethod] public void DataMenuTitleTest() => Assert.AreEqual("Data", Constants.DataMenuTitle);
         [TestMethod] public void CountriesPageTitleTest() => Assert.AreEqual("Countries", Constants.CountriesPageTitle);

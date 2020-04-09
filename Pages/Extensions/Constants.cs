@@ -4,10 +4,10 @@
     {
         public const string Unspecified = "Unspecified";
         public const string CreateNewLinkTitle = "Create New";
+        public const string SelectLinkTitle = "Select";
         public const string EditLinkTitle = "Edit";
         public const string DetailsLinkTitle = "Details";
         public const string DeleteLinkTitle = "Delete";
-        public const string BusinessMenuTitle = "Business";
         public const string PartiesMenuTitle = "Parties";
         public const string DataMenuTitle = "Data";
         public const string CountriesPageTitle = "Countries";
@@ -38,8 +38,5 @@
         public const string RatesPageTitle = "Rates";
         public const string PaymentMethodsPageTitle = "Payment Methods";
         public const string CalculatorPageTitle = "Calculator";
-
-
-
     }
 }

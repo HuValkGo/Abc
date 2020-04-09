@@ -17,6 +17,12 @@ namespace Abc.Tests.Facade.Quantity
         public void SystemOfUnitsIdTest() => isNullableProperty(() => obj.SystemOfUnitsId, x => obj.SystemOfUnitsId = x);
         [TestMethod]
         public void FactorTest() => isProperty(() => obj.Factor, x => obj.Factor= x);
-
+        [TestMethod]
+        public void GetIdTest()
+        {
+            var actual = obj.GetId();
+            var expected = $"{obj.SystemOfUnitsId}.{obj.UnitId}";
+            Assert.AreEqual(expected, actual);
+        }
     }
 }

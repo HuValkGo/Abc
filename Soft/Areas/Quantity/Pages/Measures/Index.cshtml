@@ -1,4 +1,5 @@
 ﻿@page
+@using Abc.Aids
 @using Abc.Pages.Extensions
 @using Abc.Facade.Quantity
 
@@ -9,38 +10,64 @@
     var page = Model.PageUrl;
 }
 @section Create {
-    @Html.HypertextLinkFor( string.Empty, new Link(Constants.CreateNewLinkTitle,$"{page}/Create"))
+    @Html.HypertextLinkFor(string.Empty, new Link(Constants.CreateNewLinkTitle, $"{page}/Create?fixedFilter={Model.FixedFilter}&fixedValue={Model.FixedValue}"))
 }
-<body>
-    <table class="table">
-        <thead>
-            @Html.TableHeaderFor(
-                new Link(Html.DisplayNameFor(m => m.Item.Id), Model.GetSortString(m=>m.Id,page)),
-                new Link(Html.DisplayNameFor( m=>m.Item.Name),Model.GetSortString(m=>m.Name,page)),
-                new Link(Html.DisplayNameFor( m=>m.Item.Code),Model.GetSortString(m=>m.Code,page)),
-                new Link(Html.DisplayNameFor( m=>m.Item.Definition ),Model.GetSortString(m=>m.Definition,page)),
-                new Link(Html.DisplayNameFor( m=>m.Item.ValidFrom ),Model.GetSortString(m=>m.ValidFrom,page )),
-                new Link(Html.DisplayNameFor( m=>m.Item.ValidTo),Model.GetSortString(m=>m.ValidTo,page )))
-        </thead>
-        <tbody>
-        @foreach (var item in Model.Items)
-        {
-            <tr>
-                @Html.TableRowFor(
-                    page,
-                    item.Id,
-                    Model.FixedValue,
-                    Model.FixedFilter,
-                    Html.DisplayFor( modelItem=>item.Id),
-                    Html.DisplayFor( modelItem=>item.Name ),
-                    Html.DisplayFor( modelItem=>item.Code),
-                    Html.DisplayFor( modelItem=>item.Definition ),
-                    Html.DisplayFor( modelItem=>item.ValidFrom ),
-                    Html.DisplayFor( modelItem=>item.ValidTo))
+    <body>
+        <table class="table">
+            <thead>
+                @Html.TableHeaderFor(
+                    new Link(Html.DisplayNameFor(m => m.Item.Id), Model.GetSortString(m => m.Id, page)),
+                    new Link(Html.DisplayNameFor(m => m.Item.Name), Model.GetSortString(m => m.Name, page)),
+                    new Link(Html.DisplayNameFor(m => m.Item.Code), Model.GetSortString(m => m.Code, page)),
+                    new Link(Html.DisplayNameFor(m => m.Item.Definition), Model.GetSortString(m => m.Definition, page)),
+                    new Link(Html.DisplayNameFor(m => m.Item.ValidFrom), Model.GetSortString(m => m.ValidFrom, page)),
+                    new Link(Html.DisplayNameFor(m => m.Item.ValidTo), Model.GetSortString(m => m.ValidTo, page))
+                    )
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Items)
+                {
+                    var selectedRow = "";
+                    if (item.Id == Model.SelectedId)
+                    {
+                        selectedRow = "alert-success";
+                        Model.LoadDetails(item);
+                    }
+                    <tr class=@selectedRow>
+                        @Html.TableRowWithSelectFor(
+                            page,
+                            item.Id,
+                            Model.SortOrder,
+                            Model.SearchString,
+                            Model.PageIndex,
+                            Model.FixedValue,
+                            Model.FixedFilter,
+                            Html.DisplayFor(modelItem => item.Id),
+                            Html.DisplayFor(modelItem => item.Name),
+                            Html.DisplayFor(modelItem => item.Code),
+                            Html.DisplayFor(modelItem => item.Definition),
+                            Html.DisplayFor(modelItem => item.ValidFrom),
+                            Html.DisplayFor(modelItem => item.ValidTo)
+                            )
+                    </tr>
+                }
+            </tbody>
+        </table>
 
-            </tr>
+        @if (Model.Terms.Count != 0)
+        {
+            <h3> Terms for Selected Measure </h3>
+            <table class="table">
+                <tr>
+                    <th> @(GetMember.DisplayName<MeasureTermView>(x => x.MasterId))</th>
+                    <th> @(GetMember.DisplayName<MeasureTermView>(x => x.TermId))</th>
+                    <th> @(GetMember.DisplayName<MeasureTermView>(x => x.Power))</th>
+                    <th> @(GetMember.DisplayName<MeasureTermView>(x => x.ValidFrom))</th>
+                    <th> @(GetMember.DisplayName<MeasureTermView>(x => x.ValidTo))</th>
+                </tr>
+                }
+                }
+            </table>
         }
-        </tbody>
-    </table>
-</body>
+    </body>
 
