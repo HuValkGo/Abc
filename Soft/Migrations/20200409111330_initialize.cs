@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Abc.Soft.Migrations
 {
-    public partial class initial : Migration
+    public partial class initialize : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -70,7 +70,7 @@ namespace Abc.Soft.Migrations
                     TermId = table.Column<string>(nullable: false),
                     ValidFrom = table.Column<DateTime>(nullable: true),
                     ValidTo = table.Column<DateTime>(nullable: true),
-                    Power = table.Column<string>(nullable: true)
+                    Power = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -133,7 +133,7 @@ namespace Abc.Soft.Migrations
                     TermId = table.Column<string>(nullable: false),
                     ValidFrom = table.Column<DateTime>(nullable: true),
                     ValidTo = table.Column<DateTime>(nullable: true),
-                    Power = table.Column<string>(nullable: true)
+                    Power = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {

@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace Abc.Pages {
 
-    public abstract class BasePage<TRepository, TDomain, TView, TData> :
+    public abstract class BasePage<TRepository, TDomain, TView, TData> : 
         PageModel
         where TRepository : ICrudMethods<TDomain>, ISorting, IFiltering, IPaging {
 

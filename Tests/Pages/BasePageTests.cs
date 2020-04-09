@@ -18,8 +18,7 @@ namespace Abc.Tests.Pages
             obj = new testClass(new testRepository());
         }
 
-
-        private class testClass : BasePage<IMeasuresRepository, Measure, MeasureView, MeasureData>
+        private class testClass : CommonPage<IMeasuresRepository, Measure, MeasureView, MeasureData>
         {
             protected internal testClass(IMeasuresRepository r) : base(r) => PageTitle = "Measures";
 

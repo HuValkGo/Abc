@@ -23,13 +23,17 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
                         </li>
+                        @Html.DropDownNavigationMenuFor("Data",
+                            new Link("Measures", "/Quantity/Measures"),
+                            new Link("Measure Terms", "Quantity/MeasureTerms"),
+                            new Link("Systems of Units", "Quantity/SystemsOfUnits"),
+                            new Link("Units", "/Quantity/Units"),
+                            new Link("Unit Terms", "/Quantity/UnitTerms"),
+                            new Link("Unit Factors", "/Quantity/UnitFactors"))
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
                         </li>
-                        @Html.DropDownNavigationMenuFor("Quantity",
-                            new Link("Measures","/Quantity/Measures"),
-                            new Link("Units","/Quantity/Units"))
-                        </ul>
+                    </ul>
                 </div>
             </div>
         </nav>

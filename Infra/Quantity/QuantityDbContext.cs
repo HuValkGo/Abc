@@ -19,7 +19,7 @@ namespace Abc.Infra.Quantity
         {
             base.OnModelCreating(builder); 
             InitializeTables(builder);
-
+             
         }
         public static void InitializeTables(ModelBuilder builder)
         {

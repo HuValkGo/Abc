@@ -52,8 +52,8 @@ namespace Abc.Soft.Migrations
                     b.Property<string>("TermId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Power")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Power")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("ValidFrom")
                         .HasColumnType("datetime2");
@@ -149,8 +149,8 @@ namespace Abc.Soft.Migrations
                     b.Property<string>("TermId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Power")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Power")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("ValidFrom")
                         .HasColumnType("datetime2");

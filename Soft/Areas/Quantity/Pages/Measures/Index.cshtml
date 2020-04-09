@@ -1,5 +1,7 @@
 ﻿@page
 @using Abc.Pages.Extensions
+@using Abc.Facade.Quantity
+
 @model Abc.Soft.Areas.Quantity.Pages.Measures.IndexModel
 
 @{
@@ -13,12 +15,12 @@
     <table class="table">
         <thead>
             @Html.TableHeaderFor(
-                new Link(Html.DisplayNameFor(m => m.Item.Id), Model.GetSortSorting(m=>m.Id,page)),
-                new Link(Html.DisplayNameFor( m=>m.Item.Name),Model.GetSortSorting(m=>m.Name,page)),
-                new Link(Html.DisplayNameFor( m=>m.Item.Code),Model.GetSortSorting(m=>m.Code,page)),
-                new Link(Html.DisplayNameFor( m=>m.Item.Definition ),Model.GetSortSorting(m=>m.Definition,page)),
-                new Link(Html.DisplayNameFor( m=>m.Item.ValidFrom ),Model.GetSortSorting(m=>m.ValidFrom,page )),
-                new Link(Html.DisplayNameFor( m=>m.Item.ValidTo),Model.GetSortSorting(m=>m.ValidTo,page )))
+                new Link(Html.DisplayNameFor(m => m.Item.Id), Model.GetSortString(m=>m.Id,page)),
+                new Link(Html.DisplayNameFor( m=>m.Item.Name),Model.GetSortString(m=>m.Name,page)),
+                new Link(Html.DisplayNameFor( m=>m.Item.Code),Model.GetSortString(m=>m.Code,page)),
+                new Link(Html.DisplayNameFor( m=>m.Item.Definition ),Model.GetSortString(m=>m.Definition,page)),
+                new Link(Html.DisplayNameFor( m=>m.Item.ValidFrom ),Model.GetSortString(m=>m.ValidFrom,page )),
+                new Link(Html.DisplayNameFor( m=>m.Item.ValidTo),Model.GetSortString(m=>m.ValidTo,page )))
         </thead>
         <tbody>
         @foreach (var item in Model.Items)

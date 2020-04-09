@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Abc.Soft.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200405080232_initial")]
-    partial class initial
+    [Migration("20200409111330_initialize")]
+    partial class initialize
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -54,8 +54,8 @@ namespace Abc.Soft.Migrations
                     b.Property<string>("TermId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Power")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Power")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("ValidFrom")
                         .HasColumnType("datetime2");
@@ -151,8 +151,8 @@ namespace Abc.Soft.Migrations
                     b.Property<string>("TermId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Power")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Power")
+                        .HasColumnType("int");
 
                     b.Property<DateTime?>("ValidFrom")
                         .HasColumnType("datetime2");
